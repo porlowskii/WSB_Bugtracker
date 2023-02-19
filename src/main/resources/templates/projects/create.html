@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Projekty</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <h1 th:if="${project.id == null}" th:text="#{new.project}"/>
+    <h1 th:if="${project.id != null}" th:text="#{edit.project.nr}" >
+        <span th:text="${project.code}"></span>
+    </h1>
+
+    <form th:action="@{/projects/save}" th:object="${project}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="mb-3 row">
+            <div class="col-4">
+                <label for="project-name" class="form-label" th:text="#{project.name}"/>
+            </div>
+
+            <div class="col-8">
+                <input type="text" class="form-control" id="project-name" th:field="*{name}">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="project-code" class="form-label" th:text="#{project.code}"/>
+
+            <input type="text" class="form-control" id="project-code" th:field="*{code}">
+        </div>
+
+        <div class="mb-3">
+            <label for="project-description" class="form-label" th:text="#{project.description}"/>
+
+            <textarea class="form-control" id="project-description" rows="10" th:field="*{description}"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" th:text="#{save}"/>
+
+        <a th:href="@{/projects}" class="btn btn-secondary" th:text="#{cancel}"/>
+    </form>
+</div>
+</body>
+</html>
