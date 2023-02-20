@@ -20,6 +20,7 @@
     </h1>
 
     <form th:action="@{/issues/save}" th:object="${issue}" method="post">
+        <input type="hidden" th:field="*{id}">
 
 
         <div class="mb-1 row">
