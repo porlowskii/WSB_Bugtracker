@@ -1,10 +1,10 @@
 package wsb.wsb_bugtracker.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Data
 @Entity
@@ -16,11 +16,11 @@ public class Issue {
     private Project project;
 
     @NotNull
-    @Size(min = 3)
+    @Size(min = 2, max = 50, message = "{size.issue.code.err}")
     private String code;
 
     @NotNull
-    @Size(min = 5)
+    @Size(min = 3, max = 255, message = "{size.issue.title.err}")
     private String title;
 
     private String content;
@@ -29,6 +29,16 @@ public class Issue {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private IssueType type = IssueType.TASK;
+
+    @NotNull
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private IssueStatus status = IssueStatus.OPEN;
+
+    @NotNull
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private IssuePriority priority = IssuePriority.NORMAL;
 
     @Id
     @GeneratedValue
