@@ -1,5 +1,6 @@
 package wsb.wsb_bugtracker.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import wsb.wsb_bugtracker.models.Issue;
 import wsb.wsb_bugtracker.repositories.IssueRepository;
 import wsb.wsb_bugtracker.repositories.ProjectRepository;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/issues")
