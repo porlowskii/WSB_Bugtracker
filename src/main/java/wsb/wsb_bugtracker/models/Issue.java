@@ -33,6 +33,11 @@ public class Issue {
     @NotNull
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    private IssueStatus status = IssueStatus.OPEN;
+
+    @NotNull
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private IssuePriority priority = IssuePriority.NORMAL;
 
     @Id
