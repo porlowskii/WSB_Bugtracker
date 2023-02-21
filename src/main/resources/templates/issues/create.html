@@ -12,6 +12,8 @@
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body>
+<div th:replace="/layouts/navbar :: header"></div>
+
 <div class="container">
 
     <h1 th:if="${issue.id == null}" th:text="#{issue.new}"/>
