@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" rel="stylesheet">
+
+</head>
+<body>
+
+<div th:fragment="header">
+  <div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none" href="/">
+        <svg class="bi me-2" height="32" width="40">
+          <use xlink:href="#bootstrap"></use>
+        </svg><b><i>
+        <span class="fs-4" th:text="#{home.page}" style="color: darkblue" >
+        </span></i></b>
+      </a>
+
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a aria-current="page" class="nav-link active" href="/" th:text="#{home.page}"></a></li>
+        <li class="nav-item"><a class="nav-link" href="/projects" th:text="#{project}"></a></li>
+        <li class="nav-item"><a class="nav-link" href="/issues" th:text="#{issues.title}" ></a></li>
+        <li class="nav-item"><a class="nav-link" href="#">FAQs</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+      </ul>
+    </header>
+  </div>
+</div>
+
+</body>
+</html>

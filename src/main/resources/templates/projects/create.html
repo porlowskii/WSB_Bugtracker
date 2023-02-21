@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body>
+<div th:replace="/layouts/navbar :: header"></div>
 
 <div class="container">
 
@@ -39,6 +40,15 @@
             <label for="project-description" class="form-label" th:text="#{project.description}"/>
 
             <textarea class="form-control" id="project-description" rows="10" th:field="*{description}"></textarea>
+        </div>
+
+        <div class="mb-2 row">
+            <div class="col-2">
+                <label for="project-enabled" class="form-label" th:text="#{active}"/>
+            </div>
+            <div class="col-4" >
+                <input type="checkbox" th:value="${project.enabled}" th:field="${project.enabled}" />
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary" th:text="#{save}"/>
