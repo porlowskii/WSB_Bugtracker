@@ -30,11 +30,35 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="project: ${projects}">
+        <tr th:if="${project.enabled == true}" th:each="project: ${projects}">
             <td th:text="${project.code}"/>
             <td th:text="${project.name}"/>
             <td>
-                <a th:href="@{'/projects/edit/' + ${project.id}}" class="btn btn-secondary" th:text="#{project.edit}"/>
+                <a th:href="@{'/projects/edit/' + ${project.id}}" class="btn btn-secondary" th:text="#{project.edit}" />
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+
+    <h3 th:text="#{disabled.projects}" style="color: red"/>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <td th:text="#{project.code}"/>
+            <td th:text="#{project.name}"/>
+            <td th:text="#{project.edit}"/>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${project.enabled == false}" th:each="project: ${projects}">
+            <td th:text="${project.code}" style="color: gray"/>
+            <td th:text="${project.name}" style="color: gray"/>
+            <td>
+                    <a th:href="@{'/projects/edit/' + ${project.id}}" class="btn btn-secondary" th:text="#{project.edit}" />
             </td>
         </tr>
         </tbody>

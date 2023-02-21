@@ -41,6 +41,15 @@
             <textarea class="form-control" id="project-description" rows="10" th:field="*{description}"></textarea>
         </div>
 
+        <div class="mb-2 row">
+            <div class="col-2">
+                <label for="project-enabled" class="form-label" th:text="#{active}"/>
+            </div>
+            <div class="col-4" >
+                <input type="checkbox" th:value="${project.enabled}" th:field="${project.enabled}" />
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary" th:text="#{save}"/>
 
         <a th:href="@{/projects}" class="btn btn-secondary" th:text="#{cancel}"/>

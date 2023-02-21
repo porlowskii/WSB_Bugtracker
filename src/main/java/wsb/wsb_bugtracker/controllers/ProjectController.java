@@ -3,15 +3,21 @@ package wsb.wsb_bugtracker.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import wsb.wsb_bugtracker.models.Issue;
 import wsb.wsb_bugtracker.models.Project;
+import wsb.wsb_bugtracker.repositories.IssueRepository;
 import wsb.wsb_bugtracker.repositories.ProjectRepository;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/projects")
 public class ProjectController {
     private final ProjectRepository projectRepository;
-
-    public ProjectController (ProjectRepository projectRepository) { this.projectRepository = projectRepository;}
+    private final IssueRepository issueRepository;
+    public ProjectController (ProjectRepository projectRepository, IssueRepository issueRepository) { this.projectRepository = projectRepository;
+        this.issueRepository = issueRepository;
+    }
 
     @GetMapping
     ModelAndView index () {
