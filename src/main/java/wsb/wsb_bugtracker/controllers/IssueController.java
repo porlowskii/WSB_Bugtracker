@@ -75,8 +75,8 @@ public class IssueController {
 
         if(issue.getId()==null) {
             Mail mail = new Mail(issue.getPerson().getEmail(),
-                    "Utworzono zgłoszenie nr "+issue.getId(),
-                    "Zgłoszenie nr "+issue.getId()+" zostało założone. Przypisano je do projektu "+issue.getProject().getName());
+                    "Utworzono zgłoszenie "+issue.getTitle(),
+                    "Zgłoszenie zostało założone. Przypisano je do projektu "+issue.getProject().getName());
             MailService.send(mail);
         }
 
