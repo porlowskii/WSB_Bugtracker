@@ -6,9 +6,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import wsb.wsb_bugtracker.models.Issue;
+import wsb.wsb_bugtracker.models.Mail;
 import wsb.wsb_bugtracker.repositories.IssueRepository;
 import wsb.wsb_bugtracker.repositories.PersonRepository;
 import wsb.wsb_bugtracker.repositories.ProjectRepository;
+import wsb.wsb_bugtracker.services.MailService;
 
 @Controller
 @RequestMapping("/issues")
@@ -16,7 +18,6 @@ public class IssueController {
 
     private final IssueRepository issueRepository;
     private final ProjectRepository projectRepository;
-
     private final PersonRepository personRepository;
 
     public IssueController(IssueRepository issueRepository, ProjectRepository projectRepository, PersonRepository personRepository) {
@@ -73,7 +74,10 @@ public class IssueController {
         }
 
         issueRepository.save(issue);
-
+        Mail mail = new Mail(issue.getPerson().getEmail(),
+                "Utworzono zgłoszenie nr "+issue.getId(),
+                "Zgłoszenie nr "+issue.getId()+" zostało założone. Przypisano je do projektu "+issue.getProject().getName());
+        MailService.send(mail);
         modelAndView.setViewName("redirect:/issues");
 
         return modelAndView;
