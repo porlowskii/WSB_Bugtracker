@@ -73,11 +73,15 @@ public class IssueController {
             return modelAndView;
         }
 
+        if(issue.getId()==null) {
+            Mail mail = new Mail(issue.getPerson().getEmail(),
+                    "Utworzono zgłoszenie nr "+issue.getId(),
+                    "Zgłoszenie nr "+issue.getId()+" zostało założone. Przypisano je do projektu "+issue.getProject().getName());
+            MailService.send(mail);
+        }
+
         issueRepository.save(issue);
-        Mail mail = new Mail(issue.getPerson().getEmail(),
-                "Utworzono zgłoszenie nr "+issue.getId(),
-                "Zgłoszenie nr "+issue.getId()+" zostało założone. Przypisano je do projektu "+issue.getProject().getName());
-        MailService.send(mail);
+
         modelAndView.setViewName("redirect:/issues");
 
         return modelAndView;
