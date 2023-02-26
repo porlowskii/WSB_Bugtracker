@@ -61,6 +61,22 @@
 
         <div class="mb-2 row">
             <div class="col-2">
+                <label for="person" class="form-label" th:text="#{responsible}"/>
+            </div>
+            <div class="col-4" >
+                <select id="person"
+                        class="form-control"
+                        th:field="*{person}">
+                    <option th:each="person : ${people}"
+                            th:value="${person.id}"
+                            th:text="${person.fullName}">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-2 row">
+            <div class="col-2">
                 <label for="project" class="form-label" th:text="#{project}"/>
             </div>
             <div class="col-4" >

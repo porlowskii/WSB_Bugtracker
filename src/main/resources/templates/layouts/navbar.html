@@ -9,7 +9,6 @@
 
 </head>
 <body>
-
 <div th:fragment="header">
   <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
@@ -22,11 +21,10 @@
       </a>
 
       <ul class="nav nav-pills">
-        <li class="nav-item"><a aria-current="page" class="nav-link active" href="/" th:text="#{home.page}"></a></li>
-        <li class="nav-item"><a class="nav-link" href="/projects" th:text="#{project}"></a></li>
+        <li class="nav-item"><a class="nav-link" href="/projects" th:text="#{projects.title}"></a></li>
         <li class="nav-item"><a class="nav-link" href="/issues" th:text="#{issues.title}" ></a></li>
-        <li class="nav-item"><a class="nav-link" href="#">FAQs</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="/people" th:text="#{users}" ></a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
       </ul>
     </header>
   </div>

@@ -16,6 +16,11 @@ public class Issue {
     private Project project;
 
     @NotNull
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "person_id", nullable = false)
+    private Person person;
+
+    @NotNull
     @Size(min = 2, max = 50, message = "{size.issue.code.err}")
     private String code;
 

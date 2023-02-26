@@ -1,14 +1,13 @@
 package wsb.wsb_bugtracker.controllers;
 
 import jakarta.validation.Valid;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import wsb.wsb_bugtracker.models.Issue;
-import wsb.wsb_bugtracker.models.Project;
 import wsb.wsb_bugtracker.repositories.IssueRepository;
+import wsb.wsb_bugtracker.repositories.PersonRepository;
 import wsb.wsb_bugtracker.repositories.ProjectRepository;
 
 @Controller
@@ -18,15 +17,19 @@ public class IssueController {
     private final IssueRepository issueRepository;
     private final ProjectRepository projectRepository;
 
-    public IssueController(IssueRepository issueRepository, ProjectRepository projectRepository) {
+    private final PersonRepository personRepository;
+
+    public IssueController(IssueRepository issueRepository, ProjectRepository projectRepository, PersonRepository personRepository) {
         this.issueRepository = issueRepository;
         this.projectRepository = projectRepository;
+        this.personRepository = personRepository;
     }
     @GetMapping
     ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("issues/index");
         modelAndView.addObject("issues", issueRepository.findAll());
         modelAndView.addObject("project", projectRepository.findAll());
+        modelAndView.addObject("people", personRepository.findAll());
 
         return modelAndView;
     }
@@ -38,6 +41,7 @@ public class IssueController {
         Issue issue = new Issue();
         modelAndView.addObject("issue", issue);
         modelAndView.addObject("projects", projectRepository.findAll());
+        modelAndView.addObject("people", personRepository.findAll());
 
         return modelAndView;
     }
@@ -50,6 +54,7 @@ public class IssueController {
 
         modelAndView.addObject("issue", issue);
         modelAndView.addObject("projects", projectRepository.findAll());
+        modelAndView.addObject("people", personRepository.findAll());
 
         return modelAndView;
     }
@@ -63,6 +68,7 @@ public class IssueController {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("issue", issue);
             modelAndView.addObject("projects", projectRepository.findAll());
+            modelAndView.addObject("people", personRepository.findAll());
             return modelAndView;
         }
 

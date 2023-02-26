@@ -27,6 +27,7 @@
             <td th:text="#{project}"/>
             <td th:text="#{project.name}"/>
             <td th:text="#{project.code}"/>
+            <td th:text="#{responsible}"/>
             <td th:text="#{project.edit}"/>
         </tr>
         </thead>
@@ -35,6 +36,7 @@
             <td th:text="${issue.project.code}"/>
             <td th:text="${issue.title}"/>
             <td th:text="${issue.code}"/>
+            <td th:text="${issue.person.fullName}"/>
             <td>
                 <a th:href="@{'/issues/edit/' + ${issue.id}}" class="btn btn-secondary" th:text="#{project.edit}"/>
             </td>
