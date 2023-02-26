@@ -33,10 +33,10 @@
         </thead>
         <tbody>
         <tr th:each="issue: ${issues}">
-            <td th:text="${issue.project.code}"/>
-            <td th:text="${issue.title}"/>
-            <td th:text="${issue.code}"/>
-            <td th:text="${issue.person.fullName}"/>
+            <td th:text="${issue.project.code}" id="project-code"/>
+            <td th:text="${issue.title}" id="title"/>
+            <td th:text="${issue.code}" id="code"/>
+            <td th:text="${issue.person.fullName}" id="fullname"/>
             <td>
                 <a th:href="@{'/issues/edit/' + ${issue.id}}" class="btn btn-secondary" th:text="#{project.edit}"/>
             </td>
