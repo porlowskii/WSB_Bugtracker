@@ -48,7 +48,6 @@ public class PersonController {
     String save(@ModelAttribute Person person) {
 
         boolean isNew = person.getId() == null;
-
         personRepository.save(person);
 
         return "redirect:/people";
