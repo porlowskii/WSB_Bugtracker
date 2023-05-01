@@ -26,7 +26,7 @@ public class Person {
     private String username;
 
     @Column(nullable = false)
-    @Size(min = 5)
+    @Size(min = 3)
     private String password;
 
     private Boolean enabled = true;
@@ -40,7 +40,7 @@ public class Person {
     private String email;
 
     @Column(nullable = false)
-    private Date lastUpdate = new Date();
+    private Date dateCreated = new Date();
 
 
     @ManyToMany (cascade = CascadeType.MERGE)

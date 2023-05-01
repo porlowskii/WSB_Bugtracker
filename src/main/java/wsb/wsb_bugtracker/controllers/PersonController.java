@@ -1,20 +1,24 @@
 package wsb.wsb_bugtracker.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import wsb.wsb_bugtracker.models.Person;
-import wsb.wsb_bugtracker.models.Project;
 import wsb.wsb_bugtracker.repositories.PersonRepository;
+import wsb.wsb_bugtracker.services.PersonService;
 
 @Controller
 @RequestMapping("/people")
 public class PersonController {
 
     private final PersonRepository personRepository;
+    private final PersonService personService;
 
-    public PersonController(PersonRepository personRepository) {
+    @Autowired
+    public PersonController(PersonRepository personRepository, PersonService personService) {
         this.personRepository = personRepository;
+        this.personService = personService;
     }
     @GetMapping
     ModelAndView index() {
@@ -29,7 +33,6 @@ public class PersonController {
 
         Person person = new Person();
         modelAndView.addObject("person", person);
-
         return modelAndView;
     }
 
@@ -48,7 +51,9 @@ public class PersonController {
     String save(@ModelAttribute Person person) {
 
         boolean isNew = person.getId() == null;
-        personRepository.save(person);
+//        personRepository.save(person);
+        personService.savePerson(person);
+
 
         return "redirect:/people";
     }
