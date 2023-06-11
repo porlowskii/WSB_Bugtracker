@@ -17,10 +17,6 @@
 
     <h1 th:text="#{people}"/>
 
-    <div>
-        <a th:href="@{/people/create}" class="btn btn-secondary" th:text="#{new.person}"/>
-
-    </div>
 
     <table class="table">
         <thead>
@@ -37,7 +33,7 @@
             <td th:text="${person.fullName}"/>
             <td th:text="${person.email}"/>
             <td>
-                <a th:href="@{'/people/edit/' + ${person.id}}" class="btn btn-secondary" th:text="#{project.edit}"/>
+                <a th:href="@{'/account/edit'}" class="btn btn-secondary" th:text="#{project.edit}"/>
             </td>
         </tr>
         </tbody>

@@ -12,39 +12,36 @@ import wsb.wsb_bugtracker.repositories.PersonRepository;
 import wsb.wsb_bugtracker.services.PersonService;
 
 @Controller
-@RequestMapping("/people")
-@Secured("ROLE_MANAGE_USERS")
-public class PersonController {
+@RequestMapping("/account")
+public class MyAccController {
 
     private final PersonRepository personRepository;
     private final PersonService personService;
 
     @Autowired
-    public PersonController(PersonRepository personRepository, PersonService personService) {
+    public MyAccController(PersonRepository personRepository, PersonService personService) {
         this.personRepository = personRepository;
         this.personService = personService;
     }
-    @GetMapping
-    ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView("people/index");
-        modelAndView.addObject("people", personRepository.findAll());
+
+    @GetMapping("/my")
+    ModelAndView myacc () {
+        ModelAndView modelAndView = new ModelAndView("account/index");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String username = authentication.getName();
+        System.out.println(username);
+        Person persona = personRepository.findByUsername(username);
+
+        modelAndView.addObject("people", personRepository.findById(persona.getId()).orElse(null));
         return modelAndView;
     }
-
-    @GetMapping("/create")
-    ModelAndView create() {
-        ModelAndView modelAndView = new ModelAndView("people/create");
-
-        Person person = new Person();
-        modelAndView.addObject("person", person);
-        return modelAndView;
-    }
-
-    @GetMapping("/edit/{id}")
-    ModelAndView edit(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView("people/create");
-
-        Person person = personRepository.findById(id).orElse(null);
+    @GetMapping("/edit")
+    ModelAndView edit() {
+        ModelAndView modelAndView = new ModelAndView("account/create");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Person person = personRepository.findByUsername(username);
 
         modelAndView.addObject("person", person);
 
@@ -55,11 +52,10 @@ public class PersonController {
     String save(@ModelAttribute Person person) {
 
         boolean isNew = person.getId() == null;
-//        personRepository.save(person);
         personService.savePerson(person);
 
 
-        return "redirect:/people";
+        return "redirect:/account/my";
     }
 
 }
