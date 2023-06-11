@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{add.person}"/>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="/layouts/navbar :: header"></div>
+
+<div class="container">
+
+    <h1 th:if="${person.id == null}" th:text="#{add.person}"/>
+    <h1 th:if="${person.id != null}" th:text="#{edit.person}">
+        <span th:text="${person.username}"></span>
+    </h1>
+
+    <form th:action="@{/account/save}" th:object="${person}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+
+        <div class="mb-4 row">
+            <div class="col-2">
+                <label for="person-fullname" class="form-label" th:text="#{person.fullname}"/>
+            </div>
+
+            <div class="col-4">
+                <input type="text"
+                       th:class="'form-control ' + ${#fields.hasErrors('fullName') ? 'is-invalid' : ''}"
+                       id="person-fullname"
+                       th:field="*{fullName}">
+                <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-4 row">
+            <div class="col-2">
+                <label for="person-username" class="form-label" th:text="Login"/>
+            </div>
+
+            <div class="col-4">
+                <input type="text" class="form-control" id="person-username"
+                       th:field="*{username}">
+                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-4 row">
+            <div class="col-2">
+                <label for="person-password" class="form-label" th:text="#{password}"/>
+            </div>
+
+            <div class="col-4">
+                <input type="password" class="form-control" id="person-password"
+                       th:field="*{password}">
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-4 row">
+            <div class="col-2">
+                <label for="person-email" class="form-label" th:text="Email"/>
+            </div>
+
+            <div class="col-4">
+                <input type="email" class="form-control" id="person-email"
+                       th:field="*{email}">
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" th:text="#{save}"/>
+    </form>
+</body>
+</html>
