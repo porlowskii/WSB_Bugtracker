@@ -11,18 +11,9 @@ import wsb.wsb_bugtracker.repositories.PersonRepository;
 
 @Service
 public class PersonService {
-//    @Value("${my.admin.username}")
-//    private String username;
-//    @Value("${my.admin.password}")
-//    private String password;
-//    @Value("${my.admin.firstName}")
-//    private String fullname;
-//    @Value("${my.admin.email}")
-//    private String email;
 
     private final AuthorityRepository authorityRepository;
     private final PersonRepository personRepository;
-    private PasswordEncoder passwordEncoder;
 
 
 
@@ -34,7 +25,8 @@ public class PersonService {
 
 
     public void savePerson(Person person){
-        String hashedPassword = "{bcrypt}"+ new BCryptPasswordEncoder().encode(person.getPassword());
+//        String hashedPassword = "{bcrypt}"+ new BCryptPasswordEncoder().encode(person.getPassword());
+        String hashedPassword = new BCryptPasswordEncoder().encode(person.getPassword());
         person.setPassword(hashedPassword);
         personRepository.save(person);
     }

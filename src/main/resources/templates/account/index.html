@@ -15,6 +15,9 @@
 
 <div class="container">
 
+    <div sec:authentication="name"></div>
+    <div sec:authentication="principal.authorities"></div>
+
     <h1 th:text="#{people}"/>
 
 
