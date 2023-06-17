@@ -8,9 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import wsb.wsb_bugtracker.models.Issue;
-import wsb.wsb_bugtracker.models.Mail;
-import wsb.wsb_bugtracker.models.Person;
+import wsb.wsb_bugtracker.models.*;
 import wsb.wsb_bugtracker.repositories.IssueRepository;
 import wsb.wsb_bugtracker.repositories.PersonRepository;
 import wsb.wsb_bugtracker.repositories.ProjectRepository;
@@ -30,9 +28,26 @@ public class IssueController {
         this.personRepository = personRepository;
     }
     @GetMapping
-    ModelAndView index() {
+    ModelAndView index(@RequestParam(value="code",required=false) String code,
+                       @RequestParam(value="person",required=false) Long person,
+                       @RequestParam(value="type",required=false) String type,
+                       @RequestParam(value="status",required=false) String status){
         ModelAndView modelAndView = new ModelAndView("issues/index");
-        modelAndView.addObject("issues", issueRepository.findAll());
+        if(code != null) {
+            modelAndView.addObject("issues", issueRepository.findByCode(code));
+        }
+        if(person != null) {
+            modelAndView.addObject("issues", issueRepository.findByPerson(personRepository.findById(person).orElse(null)));
+        }
+        if(type != null) {
+            modelAndView.addObject("issues",issueRepository.findByType(IssueType.valueOf(type)));
+        }
+        if(status != null) {
+            modelAndView.addObject("issues",issueRepository.findByStatus(IssueStatus.valueOf(status)));
+        }
+        if(code == null && person == null && type == null && status == null) {
+            modelAndView.addObject("issues", issueRepository.findAll());
+        }
         modelAndView.addObject("project", projectRepository.findAll());
         modelAndView.addObject("people", personRepository.findAll());
 
