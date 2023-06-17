@@ -7,9 +7,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import wsb.wsb_bugtracker.models.Authority;
 import wsb.wsb_bugtracker.models.Person;
+import wsb.wsb_bugtracker.repositories.AuthorityRepository;
 import wsb.wsb_bugtracker.repositories.PersonRepository;
 import wsb.wsb_bugtracker.services.PersonService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/people")
@@ -18,11 +22,13 @@ public class PersonController {
 
     private final PersonRepository personRepository;
     private final PersonService personService;
+    private final AuthorityRepository authorityRepository;
 
     @Autowired
-    public PersonController(PersonRepository personRepository, PersonService personService) {
+    public PersonController(PersonRepository personRepository, PersonService personService, AuthorityRepository authorityRepository) {
         this.personRepository = personRepository;
         this.personService = personService;
+        this.authorityRepository = authorityRepository;
     }
     @GetMapping
     ModelAndView index() {
@@ -47,8 +53,11 @@ public class PersonController {
         ModelAndView modelAndView = new ModelAndView("people/create");
 
         Person person = personRepository.findById(id).orElse(null);
+        List<Authority> authority = authorityRepository.findAll();
+
 
         modelAndView.addObject("person", person);
+        modelAndView.addObject("authorities", authority);
 
         return modelAndView;
     }

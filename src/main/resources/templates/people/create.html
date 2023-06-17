@@ -84,6 +84,21 @@
             </div>
         </div>
 
+        <div class="mb-4 row">
+            <div>
+                <h5 class="form-label"
+                    th:text="#{authorities}"></h5>
+            </div>
+            <div th:each="authority : ${authorities}">
+                <input name="authorities"
+                       type="checkbox"
+                       th:value="${authority.id}"
+                       th:field="*{authorities}"/>
+                <label th:text="#{${'authority.' + authority.authority}}"
+                       th:for="${#ids.prev('authorities')}"></label>
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary" th:text="#{save}"/>
     </form>
 </body>
