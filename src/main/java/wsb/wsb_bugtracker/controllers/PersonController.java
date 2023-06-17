@@ -13,7 +13,7 @@ import wsb.wsb_bugtracker.services.PersonService;
 
 @Controller
 @RequestMapping("/people")
-@Secured("ROLE_MANAGE_USERS")
+@Secured("ROLE_USER_TAB")
 public class PersonController {
 
     private final PersonRepository personRepository;
@@ -32,6 +32,7 @@ public class PersonController {
     }
 
     @GetMapping("/create")
+    @Secured("ROLE_MANAGE_USERS")
     ModelAndView create() {
         ModelAndView modelAndView = new ModelAndView("people/create");
 
@@ -41,6 +42,7 @@ public class PersonController {
     }
 
     @GetMapping("/edit/{id}")
+    @Secured("ROLE_MANAGE_USERS")
     ModelAndView edit(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("people/create");
 
@@ -52,6 +54,7 @@ public class PersonController {
     }
 
     @PostMapping("/save")
+    @Secured("ROLE_MANAGE_USERS")
     String save(@ModelAttribute Person person) {
 
         boolean isNew = person.getId() == null;

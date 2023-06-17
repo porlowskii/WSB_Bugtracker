@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title th:text="#{projects.title}"></title>
@@ -42,6 +42,7 @@
     </table>
 </div>
 
+<div sec:authorize="hasRole('ROLE_MANAGE_PROJECT')">
 <div class="container">
 
     <h3 th:text="#{disabled.projects}" style="color: red"/>
@@ -65,6 +66,6 @@
         </tbody>
     </table>
 </div>
-
+</div>
 </body>
 </html>

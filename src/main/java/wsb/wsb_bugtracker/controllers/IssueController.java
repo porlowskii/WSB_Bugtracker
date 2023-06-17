@@ -2,12 +2,15 @@ package wsb.wsb_bugtracker.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import wsb.wsb_bugtracker.models.Issue;
 import wsb.wsb_bugtracker.models.Mail;
+import wsb.wsb_bugtracker.models.Person;
 import wsb.wsb_bugtracker.repositories.IssueRepository;
 import wsb.wsb_bugtracker.repositories.PersonRepository;
 import wsb.wsb_bugtracker.repositories.ProjectRepository;
@@ -74,17 +77,25 @@ public class IssueController {
             return modelAndView;
         }
 
-        if(issue.getId()==null) {
-            Mail mail = new Mail(issue.getPerson().getEmail(),
-                    "Utworzono zgłoszenie "+issue.getTitle(),
-                    "Zgłoszenie zostało założone. Przypisano je do projektu "+issue.getProject().getName());
-            MailService.send(mail);
-        }
-
         issueRepository.save(issue);
 
         modelAndView.setViewName("redirect:/issues");
 
         return modelAndView;
+    }
+
+    @Secured("ROLE_MANAGE_PROJECT")
+    @GetMapping("/delete/{id}")
+    public String deleteIssue(@PathVariable("id") Long id) {
+        Issue issue = issueRepository.findById(id).orElse(null);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Mail mail = new Mail(issue.getPerson().getEmail(),
+                "Usunięto zgłoszenie "+issue.getTitle()+" id: "+issue.getId(),
+                "Zgłoszenie zostało usunięte przez: "+authentication.getName()+". Należało do projektu "+issue.getProject().getName());
+        MailService.send(mail);
+
+        issueRepository.delete(issue);
+        return "redirect:/issues";
     }
 }

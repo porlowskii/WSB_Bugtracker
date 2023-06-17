@@ -12,6 +12,7 @@ import wsb.wsb_bugtracker.repositories.PersonRepository;
 @Service
 public class PersonService {
 
+
     private final AuthorityRepository authorityRepository;
     private final PersonRepository personRepository;
 
@@ -22,6 +23,7 @@ public class PersonService {
         this.authorityRepository = authorityRepository;
         this.personRepository = personRepository;
     }
+
 
 
     public void savePerson(Person person){

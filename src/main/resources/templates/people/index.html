@@ -28,7 +28,9 @@
             <td th:text="Login"/>
             <td th:text="#{person.fullname}"/>
             <td th:text="Email"/>
+            <div sec:authorize="hasRole('ROLE_MANAGE_USERS')">
             <td th:text="#{project.edit}"/>
+            </div>
         </tr>
         </thead>
         <tbody>
@@ -36,9 +38,11 @@
             <td th:text="${person.username}"/>
             <td th:text="${person.fullName}"/>
             <td th:text="${person.email}"/>
-            <td>
-                <a th:href="@{'/people/edit/' + ${person.id}}" class="btn btn-secondary" th:text="#{project.edit}"/>
-            </td>
+            <div sec:authorize="hasRole('ROLE_MANAGE_USERS')">
+                <td>
+                    <a th:href="@{'/people/edit/' + ${person.id}}" class="btn btn-secondary" th:text="#{project.edit}"/>
+                </td>
+            </div>
         </tr>
         </tbody>
     </table>
