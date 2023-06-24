@@ -36,6 +36,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_MANAGE_PROJECT"));
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER_TAB"));
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_MANAGE_USERS"));
+
             return new User("admin", new BCryptPasswordEncoder().encode("pass"), grantedAuthorities);
         }
 
