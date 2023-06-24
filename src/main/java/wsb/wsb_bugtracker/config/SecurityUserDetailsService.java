@@ -31,19 +31,18 @@ public class SecurityUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Person> person = Optional.ofNullable(personRepository.findByUsername(username));
 
-        if (username.equals("admin")) {
-            Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_MANAGE_PROJECT"));
-            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER_TAB"));
-            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_MANAGE_USERS"));
-
-            return new User("admin", new BCryptPasswordEncoder().encode("pass"), grantedAuthorities);
-        }
-
         if (person.get().getEnabled() == false) {
             throw new UsernameNotFoundException(username);
         }
         if(person.isEmpty()){
+            if (username.equals("admin")) {
+                Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+                grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_MANAGE_PROJECT"));
+                grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER_TAB"));
+                grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_MANAGE_USERS"));
+
+                return new User("admin", new BCryptPasswordEncoder().encode("pass"), grantedAuthorities);
+            }
             throw new UsernameNotFoundException(username);
         }
         List<GrantedAuthority> authorities = getUserAuthorities(person);
