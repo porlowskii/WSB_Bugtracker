@@ -22,7 +22,7 @@ public class MailService {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
-            mimeMessageHelper.setFrom("bugtracker.mail.info@op.pl");
+            mimeMessageHelper.setFrom("ekotestowe@hotmail.com");
             mimeMessageHelper.setTo(mail.getRecipient());
             mimeMessageHelper.setSubject(mail.getSubject());
             mimeMessageHelper.setText(mail.getContent());

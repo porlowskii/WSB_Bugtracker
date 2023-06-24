@@ -57,7 +57,7 @@
             </div>
 
             <div class="col-4">
-                <input type="password" class="form-control" id="person-password"
+                <input type="password" class="form-control" id="person-password" autocomplete="off" th:value="${password}"
                        th:field="*{password}">
                 <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></span>
             </div>
@@ -72,6 +72,30 @@
                 <input type="email" class="form-control" id="person-email"
                        th:field="*{email}">
                 <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-4 row">
+            <div class="col-2">
+                <label for="person-enabled" class="form-label" th:text="#{active}"/>
+            </div>
+            <div class="col-4" >
+                <input type="checkbox" th:value="${person.enabled}" th:field="${person.enabled}" />
+            </div>
+        </div>
+
+        <div class="mb-4 row">
+            <div>
+                <h5 class="form-label"
+                    th:text="#{authorities}"></h5>
+            </div>
+            <div th:each="authority : ${authorities}">
+                <input name="authorities"
+                       type="checkbox"
+                       th:value="${authority.id}"
+                       th:field="*{authorities}"/>
+                <label th:text="#{${'authority.' + authority.authority}}"
+                       th:for="${#ids.prev('authorities')}"></label>
             </div>
         </div>
 

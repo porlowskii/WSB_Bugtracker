@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title th:text="#{issues.title}"></title>
@@ -20,6 +20,59 @@
     <div>
         <a th:href="@{/issues/create}" class="btn btn-secondary" th:text="#{new.issue}"/>
     </div>
+    <br>
+    <br>
+    <div>
+        <form th:action="@{/issues}"
+              th:object="${filter}">
+            SZUKAJ
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <input type="text" class="form-control" id="code" name="code" th:placeholder="#{issue.code.placeholder}">
+                    </div>
+                    <div class="col-sm">
+                        <select name="person" id="person"
+                                class="form-control">
+                            <option value="" disabled selected hidden th:text="#{responsible}"></option>
+                            <option th:each="person : ${people}"
+                                    th:value="${person.id}"
+                                    th:text="${person.fullName}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm">
+                        <select name="type" id="type" class="form-control" >
+                            <option value="" disabled selected hidden th:text="#{type}"></option>
+                            <option th:each="issueType : ${T(wsb.wsb_bugtracker.models.IssueType).values()}"
+                                    th:value="${issueType}"
+                                    th:text="${issueType}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm">
+                        <select name="status" id="status" class="form-control" >
+                            <option value="" disabled selected hidden th:text="#{issue.status}"></option>
+                            <option th:each="issueStatus : ${T(wsb.wsb_bugtracker.models.IssueStatus).values()}"
+                                    th:value="${issueStatus}"
+                                    th:text="${issueStatus}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm">
+                        <button class="btn btn-primary"
+                                type="submit"
+                                th:text="#{search}"></button>
+                        <a th:href="@{/issues}"
+                           th:text="#{clear}"
+                           class="btn btn-secondary"></a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
 
     <table class="table">
         <thead>
@@ -29,6 +82,7 @@
             <td th:text="#{project.code}"/>
             <td th:text="#{responsible}"/>
             <td th:text="#{project.edit}"/>
+            <div sec:authorize="hasRole('ROLE_MANAGE_PROJECT')"><td th:text="#{delete}"></td></div>
         </tr>
         </thead>
         <tbody>
@@ -40,6 +94,11 @@
             <td>
                 <a th:href="@{'/issues/edit/' + ${issue.id}}" class="btn btn-secondary" th:text="#{project.edit}"/>
             </td>
+            <div sec:authorize="hasRole('ROLE_MANAGE_PROJECT')">
+                <td>
+                    <a th:href="@{'/issues/delete/' + ${issue.id}}" class="btn btn-secondary" th:text="#{delete}"/>
+                </td>
+            </div>
         </tr>
         </tbody>
     </table>

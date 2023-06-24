@@ -15,29 +15,46 @@
 
 <div class="container">
 
-    <div sec:authentication="name"></div>
-    <div sec:authentication="principal.authorities"></div>
 
-    <h1 th:text="#{people}"/>
+    <h1 th:text="#{myAcc}"/>
 
+    <tr th:each="person: ${people}">
 
-    <table class="table">
-        <thead>
-        <tr>
-            <td th:text="Login"/>
-            <td th:text="#{person.fullname}"/>
-            <td th:text="Email"/>
-            <td th:text="#{project.edit}"/>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="person: ${people}">
-            <td th:text="${person.username}"/>
-            <td th:text="${person.fullName}"/>
-            <td th:text="${person.email}"/>
-            <td>
-                <a th:href="@{'/account/edit'}" class="btn btn-secondary" th:text="#{project.edit}"/>
-            </td>
+        <div class="mb-4 row">
+            <div class="col-2">
+                <div th:text="Login"/>
+            </div>
+            <div class="col-2">
+                <div th:text="${person.username}"/>
+            </div>
+        </div>
+        <div class="mb-4 row">
+            <div class="col-2">
+                <div th:text="#{person.fullname}"/>
+            </div>
+            <div class="col-2">
+                <div th:text="${person.fullName}"/>
+            </div>
+        </div>
+        <div class="mb-4 row">
+            <div class="col-2">
+                <div th:text="Email"/>
+            </div>
+            <div class="col-2">
+                <div th:text="${person.email}"/>
+            </div>
+        </div>
+        <div class="mb-4 row">
+            <div class="col-2">
+                <div th:text="#{person.roles}"/>
+            </div>
+            <div class="col-2">
+                <div sec:authentication="principal.authorities"/>
+            </div>
+        </div>
+
+        <a th:href="@{'/account/edit'}" class="btn btn-secondary" th:text="#{project.edit}"/>
+
         </tr>
         </tbody>
     </table>

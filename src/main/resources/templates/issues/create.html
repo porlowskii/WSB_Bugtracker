@@ -53,13 +53,15 @@
             </div>
         </div>
 
-        <div class="mb-2 row">
-            <div>
-                OPIS
+        <div class="mb-4 row">
+            <div class="col-2">
+                <label for="project-description" class="form-label" th:text="#{project.description}"/>
+            </div>
+            <div class ="col-4">
+                <textarea class="form-control" id="project-description" rows="10" th:field="*{content}"></textarea>
             </div>
         </div>
-
-        <div class="mb-2 row">
+        <div class="mb-4 row">
             <div class="col-2">
                 <label for="person" class="form-label" th:text="#{responsible}"/>
             </div>

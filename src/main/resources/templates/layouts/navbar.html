@@ -25,7 +25,7 @@
       <ul class="nav nav-pills">
         <li class="nav-item"><a class="nav-link" href="/projects" th:text="#{projects.title}"></a></li>
         <li class="nav-item"><a class="nav-link" href="/issues" th:text="#{issues.title}" ></a></li>
-        <div sec:authorize="hasRole('ROLE_MANAGE_USERS')"><li class="nav-item"><a class="nav-link" href="/people" th:text="#{users}" ></a></li></div>
+        <div sec:authorize="hasRole('ROLE_USER_TAB')"><li class="nav-item"><a class="nav-link" href="/people" th:text="#{users}" ></a></li></div>
         <li class="nav-item"><a class="nav-link" href="/account/my"><div sec:authentication="name"></div></a></li>
         <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
       </ul>
