@@ -12,7 +12,7 @@ CREATE TABLE public.person (
 
 INSERT INTO public.person(
     id, date_created, email, enabled, full_name, password, username)
-VALUES (1, 'now', 'p.orlowski@hotmail.com', true, 'ADMIN', '$2a$10$sAt4CNOkf3JdjjRt9vEQY.xJ6JMr1hw9yG2TKvGUgsuq6H9JRh6C.', 'admin');
+VALUES (-1, 'now', 'p.orlowski@hotmail.com', true, 'ADMIN', '$2a$10$sAt4CNOkf3JdjjRt9vEQY.xJ6JMr1hw9yG2TKvGUgsuq6H9JRh6C.', 'admin');
 
 
 CREATE TABLE public.person_authorities (
@@ -25,6 +25,6 @@ CREATE TABLE public.person_authorities (
 
 
 INSERT INTO public.person_authorities (person_id,authority_id) VALUES
-                                                                   (1,1),
-                                                                   (1,2),
-                                                                   (1,3);
+                                                                   (-1,1),
+                                                                   (-1,2),
+                                                                   (-1,3);
